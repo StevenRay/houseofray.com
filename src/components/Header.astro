@@ -1,0 +1,120 @@
+---
+const pathname = Astro.url.pathname;
+
+const navigation = [
+  { name: "Work", href: "/work" },
+  { name: "Video", href: "/video" },
+  { name: "Gallery", href: "/gallery" },
+  { name: "Press", href: "/press" },
+  { name: "Contact", href: "/contact" },
+];
+---
+
+<header class="sticky top-0 z-40 bg-cream/95 backdrop-blur-sm border-b border-mauve-light">
+  <nav
+    class="mx-auto max-w-6xl px-6 py-4 flex items-center justify-between"
+    aria-label="Main navigation"
+  >
+    <a
+      href="/"
+      class="font-serif text-2xl tracking-tight text-purple hover:text-purple-light transition-colors"
+    >
+      Nycole Ray
+    </a>
+
+    <!-- Desktop navigation -->
+    <ul class="hidden md:flex items-center gap-8">
+      {navigation.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={[
+              "text-sm tracking-wide transition-colors hover:text-gold",
+              pathname === item.href || pathname === item.href + "/"
+                ? "text-purple font-medium"
+                : "text-purple-light"
+            ]}
+          >
+            {item.name}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Mobile menu button -->
+    <button
+      type="button"
+      class="md:hidden p-2 -mr-2 text-purple-light hover:text-purple transition-colors"
+      id="mobile-menu-button"
+      aria-expanded="false"
+      aria-label="Open menu"
+    >
+      <svg
+        class="w-6 h-6 menu-icon"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+        />
+      </svg>
+      <svg
+        class="w-6 h-6 close-icon hidden"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M6 18L18 6M6 6l12 12"
+        />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="md:hidden border-t border-mauve-light bg-cream hidden" id="mobile-menu">
+    <ul class="px-6 py-4 space-y-4">
+      {navigation.map((item) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={[
+              "block text-base transition-colors hover:text-gold",
+              pathname === item.href || pathname === item.href + "/"
+                ? "text-purple font-medium"
+                : "text-purple-light"
+            ]}
+          >
+            {item.name}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+</header>
+
+<script>
+  const button = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+  const menuIcon = button?.querySelector('.menu-icon');
+  const closeIcon = button?.querySelector('.close-icon');
+
+  button?.addEventListener('click', () => {
+    const isOpen = menu?.classList.contains('hidden') === false;
+
+    menu?.classList.toggle('hidden');
+    menuIcon?.classList.toggle('hidden');
+    closeIcon?.classList.toggle('hidden');
+    button.setAttribute('aria-expanded', String(!isOpen));
+    button.setAttribute('aria-label', isOpen ? 'Open menu' : 'Close menu');
+  });
+</script>

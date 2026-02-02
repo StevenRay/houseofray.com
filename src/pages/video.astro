@@ -1,0 +1,39 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const videos = [
+  { title: "Diaspora" },
+  { title: "Nineteenth" },
+  { title: "Rising" },
+  { title: "Love Songs" },
+  { title: "Opaque" },
+  { title: "The Breath Within" },
+  { title: "Above & Below" },
+];
+---
+
+<Layout title="Video | Nycole Ray" description="Video documentation of choreographic works by Nycole Ray.">
+  <div class="mx-auto max-w-5xl px-6 py-16 md:py-24">
+    <header class="mb-16">
+      <h1 class="font-serif text-4xl md:text-5xl mb-4 text-purple">Video</h1>
+      <p class="text-lg text-purple-light">
+        Performance documentation
+      </p>
+    </header>
+
+    <div class="grid gap-12 md:gap-16">
+      {videos.map((video) => (
+        <article>
+          <h2 class="font-serif text-xl md:text-2xl mb-4 text-purple">
+            {video.title}
+          </h2>
+          <div class="relative aspect-video bg-cream-dark border border-mauve-light rounded-lg flex items-center justify-center">
+            <p class="text-mauve-dark text-sm">
+              Video coming soon
+            </p>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</Layout>
